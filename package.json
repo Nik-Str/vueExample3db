@@ -1,0 +1,16 @@
+{
+  "name": "vue-example2-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.16"
+  }
+}
