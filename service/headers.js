@@ -2,4 +2,10 @@ const get = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET',
 };
-module.exports = { get };
+
+const post = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST',
+};
+
+module.exports = { get, post };
