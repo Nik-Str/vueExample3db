@@ -15,6 +15,9 @@ const server = http.createServer(async (req, res) => {
   } else if (req.url.match(/\/image\/([a-zA-Z0-9_.-]*)/) && req.method === 'GET') {
     const getImage = require('./controllers/getImage');
     return getImage(req, res);
+  } else if (req.url === '/homevideo') {
+    const getVideo = require('./controllers/getHomeVideo');
+    return getVideo(req, res);
   } else {
     res.write('404 not found');
     return res.end();
