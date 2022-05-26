@@ -1,6 +1,6 @@
 const pool = require('./database');
 
-function getSelectedData(sql, arr) {
+function querySelectedData(sql, arr) {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, con) => {
       if (err) reject(err);
@@ -13,7 +13,7 @@ function getSelectedData(sql, arr) {
   });
 }
 
-function getData(sql) {
+function queryData(sql) {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, con) => {
       if (err) reject(err);
@@ -37,4 +37,4 @@ const standardQuery = `SELECT
     JOIN color ON products.color = color.id 
 `;
 
-module.exports = { getData, getSelectedData, standardQuery };
+module.exports = { queryData, querySelectedData, standardQuery };
