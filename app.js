@@ -2,17 +2,21 @@ const http = require('http');
 require('dotenv').config();
 const port = process.env.PORT | 3000;
 const saveSupportMsg = require('./controllers/postSupportMsg');
-const { get } = require('./service/headers');
+const { get, option } = require('./service/headers');
 const { v4: uuidv4 } = require('uuid');
 const clients = new Map();
 
 const server = http.createServer(async (req, res) => {
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200, option);
+  }
+
   if (req.url === '/products/male' && req.method === 'GET') {
-    const getMaleProducts = require('./controllers/getMaleProducts');
-    return await getMaleProducts(req, res);
+    const getMaleProducts = require('./controllers/getProductsBySex');
+    return await getMaleProducts(req, res, 'Male');
   } else if (req.url === '/products/female' && req.method === 'GET') {
-    const getFemaleProducts = require('./controllers/getFemaleProducts');
-    return await getFemaleProducts(req, res);
+    const getFemaleProducts = require('./controllers/getProductsBySex');
+    return await getFemaleProducts(req, res, 'Female');
   } else if (req.url === '/products' && req.method === 'POST') {
     const getProduct = require('./controllers/getProducts');
     return await getProduct(req, res);
@@ -27,7 +31,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(200, { ...get, 'Content-Type': 'application/json' });
     res.end(JSON.stringify(keys));
   } else if (req.url === '/supportchat') {
-    const getSupportChat = require('./controllers/getSupprortMsg');
+    const getSupportChat = require('./controllers/getSupportMsg');
     return await getSupportChat(req, res);
   } else if (req.url === '/removesupport') {
     const removeSupportChat = require('./controllers/removeSupportChat');
@@ -55,7 +59,6 @@ wss.on('connection', async (ws, req) => {
     clients.set(id, ws);
     ws.send(JSON.stringify({ ticketId: id }));
   }
-
   ws.on('message', async (msg) => {
     try {
       const message = JSON.parse(msg);
