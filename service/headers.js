@@ -15,4 +15,4 @@ const option = {
   'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Origin',
 };
 
-module.exports = { get, post };
+module.exports = { get, post, option };
